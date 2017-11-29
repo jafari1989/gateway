@@ -197,15 +197,12 @@ abstract class PortAbstract
 	}
 
 	function getTimeId()
-	{
-		$genuid = function(){
-			return substr(str_pad(str_replace('.','', microtime(true)),12,0),0,12);
-		};
-		$uid=$genuid();
-		while ($this->getTable()->whereId($uid)->first())
-			$uid = $genuid();
-		return $uid;
-	}
+    {
+        $uid = time();
+        while ($this->getTable()->whereId($uid)->first())
+            $uid = time();
+        return $uid;
+    }
 
 	/**
 	 * Insert new transaction to poolport_transactions table
